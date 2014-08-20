@@ -27,7 +27,7 @@ var app = {
         deviceList.firstChild.innerHTML = "Discovering...";
         app.setStatus("Looking for Bluetooth Devices...");
         
-        bluetoothSerial.list(app.ondevicelist, app.generateFailureFunction("List Failed"));
+        //bluetoothSerial.list(app.ondevicelist, app.generateFailureFunction("List Failed"));
     },
     connect: function (e) {
         app.setStatus("Connecting...");
