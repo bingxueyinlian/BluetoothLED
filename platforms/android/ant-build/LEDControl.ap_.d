@@ -62,6 +62,14 @@ F:\baiduyundownload\BluetoothLED\platforms\android\assets\www\js\index.js \
 F:\baiduyundownload\BluetoothLED\platforms\android\assets\www\js\jquery-1.9.1.min.js \
 F:\baiduyundownload\BluetoothLED\platforms\android\assets\www\js\underscore-min.js \
 F:\baiduyundownload\BluetoothLED\platforms\android\assets\www\plugins\com.megster.cordova.bluetoothserial \
+F:\baiduyundownload\BluetoothLED\platforms\android\assets\www\plugins\org.apache.cordova.device \
+F:\baiduyundownload\BluetoothLED\platforms\android\assets\www\plugins\org.apache.cordova.dialogs \
 F:\baiduyundownload\BluetoothLED\platforms\android\assets\www\plugins\com.megster.cordova.bluetoothserial\www \
 F:\baiduyundownload\BluetoothLED\platforms\android\assets\www\plugins\com.megster.cordova.bluetoothserial\www\bluetoothSerial.js \
+F:\baiduyundownload\BluetoothLED\platforms\android\assets\www\plugins\org.apache.cordova.device\www \
+F:\baiduyundownload\BluetoothLED\platforms\android\assets\www\plugins\org.apache.cordova.device\www\device.js \
+F:\baiduyundownload\BluetoothLED\platforms\android\assets\www\plugins\org.apache.cordova.dialogs\www \
+F:\baiduyundownload\BluetoothLED\platforms\android\assets\www\plugins\org.apache.cordova.dialogs\www\android \
+F:\baiduyundownload\BluetoothLED\platforms\android\assets\www\plugins\org.apache.cordova.dialogs\www\notification.js \
+F:\baiduyundownload\BluetoothLED\platforms\android\assets\www\plugins\org.apache.cordova.dialogs\www\android\notification.js \
 F:\baiduyundownload\BluetoothLED\platforms\android\ant-build\AndroidManifest.xml \

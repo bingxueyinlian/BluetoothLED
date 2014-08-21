@@ -15,11 +15,11 @@
                     ],
                     "/*": [
                         {
-                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "xml": "<feature name=\"Notification\"><param name=\"android-package\" value=\"org.apache.cordova.dialogs.Notification\" /></feature>",
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Notification\"><param name=\"android-package\" value=\"org.apache.cordova.dialogs.Notification\" /></feature>",
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -42,16 +42,13 @@
         }
     },
     "installed_plugins": {
-        "com.megster.cordova.bluetoothserial": {
+        "org.apache.cordova.dialogs": {
             "PACKAGE_NAME": "com.product.bluetoothled"
         },
         "org.apache.cordova.device": {
             "PACKAGE_NAME": "com.product.bluetoothled"
         },
-        "org.apache.cordova.console": {
-            "PACKAGE_NAME": "com.product.bluetoothled"
-        },
-        "org.apache.cordova.dialogs": {
+        "com.megster.cordova.bluetoothserial": {
             "PACKAGE_NAME": "com.product.bluetoothled"
         }
     },
