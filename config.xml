@@ -4,8 +4,8 @@
     <description>
         This is a LED Control APP.
     </description>
-    <author email="290388220@qq.com" href="">
-        YangChunJiang
+	<author email="dev@cordova.apache.org" href="http://cordova.io">
+        Apache Cordova Team
     </author>
     <content src="index.html" />
     <access origin="*" />

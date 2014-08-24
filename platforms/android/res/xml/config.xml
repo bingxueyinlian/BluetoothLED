@@ -5,22 +5,22 @@
     <feature name="App">
         <param name="android-package" value="org.apache.cordova.App" />
     </feature>
-    <feature name="Notification">
-        <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
+    <feature name="BluetoothSerial">
+        <param name="android-package" value="com.megster.cordova.BluetoothSerial" />
     </feature>
     <feature name="Device">
         <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="Notification">
+        <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
     </feature>
     <name>LED Control</name>
     <description>
         This is a LED Control APP.
     </description>
-    <author email="290388220@qq.com" href="">
-        YangChunJiang
+    <author email="dev@cordova.apache.org" href="http://cordova.io">
+        Apache Cordova Team
     </author>
     <content src="index.html" />
     <access origin="*" />
-    <feature name="BluetoothSerial">
-        <param name="android-package" value="com.megster.cordova.BluetoothSerial" />
-    </feature>
 </widget>

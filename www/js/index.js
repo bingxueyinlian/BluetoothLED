@@ -8,7 +8,9 @@ var app = {
     },
     bind: function() {
         document.addEventListener('deviceready', this.deviceready, false);
-        colorScreen.hidden = true;
+		//var rangeHint="<span class='floatL'>2700K</span><span  class='floatR'>6300K</span>";
+		//$('.rangeDiv').append(rangeHint);
+		//colorScreen.hidden = true;
     },
     deviceready: function() {
 
