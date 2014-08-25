@@ -1,14 +1,15 @@
 /* jshint quotmark: false, unused: vars, browser: true */
-/* global cordova, console, $, bluetoothSerial, _, refreshButton, deviceList,disconnectButton, connectionScreen, controlScreen, messageDiv */
+/* global cordova, console, $, bluetoothSerial, _, refreshButton, deviceList,disconnectButton,reset,read,down, connectionScreen, controlScreen, messageDiv */
 'use strict';
 
 var app = {
+	//oplist = null,
     initialize: function() {
         this.bind();
     },
     bind: function() {
         document.addEventListener('deviceready', this.deviceready, false);
-        //colorScreen.hidden = true;
+        controlScreen.hidden = true;
 
         //the following code move to deviceready
         //new OperationList();
@@ -22,7 +23,10 @@ var app = {
         deviceList.ontouchstart = app.connect; // assume not scrolling
         refreshButton.ontouchstart = app.list;
         disconnectButton.ontouchstart = app.disconnect;
-
+		
+        reset.ontouchstart = app.reset;
+        read.ontouchstart = app.read;
+        down.ontouchstart = app.sendToDevice;
         $('.topcoat-range').on('change', 0, app.onSliderChange); //drag the slider
         $('.reduce_slider').on('click', -1, app.onSliderChange); //click button to reduce the slider
         $('.add_slider').on('click', 1, app.onSliderChange); //click button to add the slider
@@ -47,14 +51,14 @@ var app = {
     },
     onconnect: function() {
         connectionScreen.hidden = true;
-        colorScreen.hidden = false;
+        controlScreen.hidden = false;
         app.setStatus("Connected.");
-        
-        new OperationList();        
+        //app.oplist =
+		new OperationList();  
     },
     ondisconnect: function() {
         connectionScreen.hidden = false;
-        colorScreen.hidden = true;
+        controlScreen.hidden = true;
         app.setStatus("Disconnected.");
     },
     onSliderChange: function(evt) {
@@ -138,5 +142,12 @@ var app = {
             app.setStatus(message + details);
         };
         return func;
-    }
+    },
+	reset: function(){
+		 //app.oplist.initialize();       
+	},
+	read: function(){
+		bluetoothSerial.read(function(data){alert(data);}, function(err){alert("Error:"+err);});
+	}
+	
 };

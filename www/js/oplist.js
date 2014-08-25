@@ -1,4 +1,4 @@
-var OperationList = function(data) {
+var OperationList =  function(data) {
     var defaultData = [
                 { title: 'Cloudy', min: 2700, max: 6300, slider_val: 5121, brightness: 15 },
                 { title: 'SunLight', min: 2700, max: 6300, slider_val: 3422, brightness: 20 },
@@ -7,16 +7,17 @@ var OperationList = function(data) {
                 { title: 'StarLight', min: 2700, max: 6300, slider_val: 3061, brightness: 20 }
               ];
     this.initialize = function() {
-        if (data) {
-            defaultData = data;
-        }
+        this.setData(data);
         this.render();
     }
+	this.setData = function(newData){
+		if (newData) {
+            defaultData = newData;
+        }
+	}
     this.render = function() {
         var itemListTpl = Handlebars.compile($("#op-list-tpl").html());
         $('.topcoat-list__container').html(itemListTpl(defaultData));
     }
-
     this.initialize();
-
 };
