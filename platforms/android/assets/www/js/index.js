@@ -1,5 +1,5 @@
 /* jshint quotmark: false, unused: vars, browser: true */
-/* global cordova, console, $, bluetoothSerial, _, refreshButton, deviceList, previewColor, red, green, blue, disconnectButton, connectionScreen, colorScreen, rgbText, messageDiv */
+/* global cordova, console, $, bluetoothSerial, _, refreshButton, deviceList,disconnectButton, connectionScreen, controlScreen, messageDiv */
 'use strict';
 
 var app = {
@@ -8,40 +8,40 @@ var app = {
     },
     bind: function() {
         document.addEventListener('deviceready', this.deviceready, false);
-		//var rangeHint="<span class='floatL'>2700K</span><span  class='floatR'>6300K</span>";
-		//$('.rangeDiv').append(rangeHint);
-		//colorScreen.hidden = true;
+        //colorScreen.hidden = true;
+
+        //the following code move to deviceready
+        new OperationList();
+        // slider changes
+        // $('.topcoat-range').on('change', 0, app.onSliderChange); //drag the slider
+        // $('.reduce_slider').on('click', -1, app.onSliderChange); //click button to reduce the slider
+        // $('.add_slider').on('click', 1, app.onSliderChange); //click button to add the slider
     },
     deviceready: function() {
-
         // wire buttons to functions
         deviceList.ontouchstart = app.connect; // assume not scrolling
         refreshButton.ontouchstart = app.list;
         disconnectButton.ontouchstart = app.disconnect;
 
-        // throttle changes
-        var throttledOnColorChange = _.throttle(app.onColorChange, 200);
-        $('input').on('change', throttledOnColorChange);
+        $('.topcoat-range').on('change', 0, app.onSliderChange); //drag the slider
+        $('.reduce_slider').on('click', -1, app.onSliderChange); //click button to reduce the slider
+        $('.add_slider').on('click', 1, app.onSliderChange); //click button to add the slider
         
         app.list();
     },
     list: function(event) {
         deviceList.firstChild.innerHTML = "Discovering...";
         app.setStatus("Looking for Bluetooth Devices...");
-        
+
         bluetoothSerial.list(app.ondevicelist, app.generateFailureFunction("List Failed"));
     },
-    connect: function (e) {
+    connect: function(e) {
         app.setStatus("Connecting...");
         var device = e.target.getAttribute('deviceId');
         console.log("Requesting connection to " + device);
-        bluetoothSerial.connect(device, app.onconnect, app.ondisconnect);        
+        bluetoothSerial.connect(device, app.onconnect, app.ondisconnect);
     },
     disconnect: function(event) {
-        if (event) {
-            event.preventDefault();
-        }
-
         app.setStatus("Disconnecting...");
         bluetoothSerial.disconnect(app.ondisconnect);
     },
@@ -55,20 +55,34 @@ var app = {
         colorScreen.hidden = true;
         app.setStatus("Disconnected.");
     },
-    onColorChange: function (evt) {
-        var c = app.getColor();
-        rgbText.innerText = c;
-        previewColor.style.backgroundColor = "rgb(" + c + ")";
-        app.sendToArduino(c);
+    onSliderChange: function(evt) {
+        var type = evt.data;
+        var thisObj = $(evt.target);
+        var sliderDiv = thisObj.parent();
+        var slider_val = sliderDiv.next().find('.slider_val');
+        var newValue;
+        if (type === 0) {
+            newValue = thisObj.val();
+            slider_val.html(newValue);
+        }
+        else {
+            var rangeObj = sliderDiv.find('.topcoat-range');
+            var min = rangeObj.attr('min');
+            var max = rangeObj.attr('max');
+            var curValue = parseInt(rangeObj.val(), 10);
+            if (type === -1) { //reduce
+                newValue = curValue - 1;
+                if (newValue < min) return;
+                rangeObj.val(newValue);
+            } else if (type === 1) {
+                newValue = curValue + 1;
+                if (newValue > max) return;
+                rangeObj.val(newValue);
+            }
+        }
+        slider_val.html(newValue);
     },
-    getColor: function () {
-        var color = [];
-        color.push(red.value);
-        color.push(green.value);
-        color.push(blue.value);
-        return color.join(',');
-    },
-    sendToArduino: function(c) {
+    sendToDevice: function(c) {
         bluetoothSerial.write("c" + c + "\n");
     },
     timeoutId: 0,
@@ -85,7 +99,7 @@ var app = {
         // remove existing devices
         deviceList.innerHTML = "";
         app.setStatus("");
-        
+
         devices.forEach(function(device) {
             listItem = document.createElement('li');
             listItem.className = "topcoat-list__item";
@@ -96,13 +110,13 @@ var app = {
             } else {
                 deviceId = "ERROR " + JSON.stringify(device);
             }
-            listItem.setAttribute('deviceId', device.address);            
+            listItem.setAttribute('deviceId', device.address);
             listItem.innerHTML = device.name + "<br/><i>" + deviceId + "</i>";
             deviceList.appendChild(listItem);
         });
 
         if (devices.length === 0) {
-            
+
             if (cordova.platformId === "ios") { // BLE
                 app.setStatus("No Bluetooth Peripherals Discovered.");
             } else { // Android

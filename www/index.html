@@ -1,79 +1,98 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name = "format-detection" content = "telephone=no"/>
-        <!--
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <!--
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width;" />
         -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-       <!--  <link rel="stylesheet" type="text/css" href="css/topcoat-mobile-light.min.css"> -->
-        <title>LED Control</title>
-        <script src="js/jquery-1.9.1.min.js"></script>
-
-    </head>
-    <body>
-        <div class="topcoat-navigation-bar">
-            <div class="topcoat-navigation-bar__item center full">
-                <h1 class="topcoat-navigation-bar__title">Bluetooth List</h1>
-            </div>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+    <link rel="stylesheet" type="text/css" href="css/topcoat-mobile-light.min.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <title>LED Control</title>
+</head>
+<body>
+    <div class="topcoat-navigation-bar">
+        <div class="topcoat-navigation-bar__item center full">
+            <h1 class="topcoat-navigation-bar__title">
+                LED Control</h1>
         </div>
-        <div id="connectionScreen">
-            <ul id="deviceList" class="topcoat-list">      
+    </div>
+    <div id="connectionScreen">
+        <ul id="deviceList" class="topcoat-list">
+        </ul>
+        <div class="refresh">
+            <button class="topcoat-button" id="refreshButton">
+                Refresh</button>
+        </div>
+    </div>
+    <div id="controlScreen">
+        <div class="topcoat-list">
+            <ul class="topcoat-list__container">
+
+                <script id="op-list-tpl" type="text/template">
+             {{#each this}}
+                <li class="topcoat-list__item">
+                    <div class="subitem_1">
+                        <img src="images/{{title}}.png" />
+                        <div class='slider'>
+                            <button class='reduce_slider'>◀</button>
+                            <input type="range" min="{{min}}" max="{{max}}" value="{{slider_val}}" class="topcoat-range" />
+                            <button class='add_slider'>▶</button>
+                            <div>
+                                <span style="float: left">{{min}}K</span><span style="float: right">{{max}}K</span></div>
+                        </div>
+                        <div>
+                            <span class="topcoat-icon"></span>
+                            <div class="slider_val">
+                                {{slider_val}}K</div>
+                        </div>
+                    </div>
+                    <div class="subitem_2">
+                        <label>
+                            {{title}}</label>
+                        <span>Brightness：</span>
+                        <input type="number" class="topcoat-text-input" min="0" max="100" value="{{brightness}}" />%
+                    </div>
+                </li>
+             {{/each}}
+                <li class="topcoat-list__item">
+                    <div class="subitem_1">
+                     <button class="topcoat-button" id="reset">Reset</button>
+                     <label class="topcoat-checkbox">
+                        <input type="checkbox" id="syn">
+                        <div class="topcoat-checkbox__checkmark">
+                        </div>
+                        Syn
+                     </label>
+                     <button class="topcoat-button" id="read">Read</button>
+                     <button class="topcoat-button" id="down">Down</button>
+                    </div>
+                <li>
+                </script>
             </ul>
-            <div style="margin: 10px">            
-                <button class="topcoat-button" id="refreshButton">Refresh</button>
-            </div>            
         </div>
         
-        <div id="colorScreen">
-            <div>
-                Use sliders to set value.
-            </div>
-		   <div class="rangeDiv">
-			   <fieldset style='width:100%'>
-					<legend>Cloudy:</legend>
-					<table>
-					<tr>
-					<td><img src='images/Cloudy.png' /></td>
-					<td><input type='button' value='&#9668'></td>
-					<td colspan='2'>
-					<input type="range" min="2700" max="6300" value="0" name="cloudy" id="cloudy" /><br/>
-					</td>
-					<td><input type='button' value='&#9658'></td>
-					<td><img src='images/black.png' /></td>
-					<td><input type='number' min='0' max='100' step='2'/>%</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td style='text-align:left'>2700K</td>
-						<td style='text-align:right'>6300K</td>
-						<td></td>
-						<td style='text-align:center'>5500K</td>
-						<td>Brightless</td>
-					</tr>
-					</table>							
-				</fieldset>
-            </div>
-           
-
-            <div id="rgbText">
-                &nbsp;
-            </div>
-            <div id="previewColor">
-            </div>
-            <p>
-                <a class="topcoat-button--large" id="disconnectButton">Disconnect</a>
-            </p>
+        <div class="alignC">
+            <button class="topcoat-button" id="disconnectButton">Disconnect</button>
         </div>
-        <div id="messageDiv">        
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/underscore-min.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-    </body>
+    </div>
+    <div id="messageDiv">
+    </div>
+
+    <script src="cordova.js"></script>
+
+    <script src="js/jquery-1.9.1.min.js"></script>
+
+    <script src="js/handlebars.js"></script>
+
+    <script src="js/oplist.js"></script>
+
+    <script src="js/index.js"></script>
+
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+
+</body>
 </html>

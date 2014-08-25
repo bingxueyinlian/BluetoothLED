@@ -1,2 +1,2 @@
-D:\Android\workspace\BluetoothLED\platforms\android\ant-build\AndroidManifest.xml : \
-D:\Android\workspace\BluetoothLED\platforms\android\AndroidManifest.xml \
+F:\baiduyundownload\BluetoothLED\platforms\android\ant-build\AndroidManifest.xml : \
+F:\baiduyundownload\BluetoothLED\platforms\android\AndroidManifest.xml \
