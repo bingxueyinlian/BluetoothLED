@@ -39,10 +39,10 @@
     },
     "installed_plugins": {
         "com.megster.cordova.bluetoothserial": {
-            "PACKAGE_NAME": "com.product.bluetoothled"
+            "PACKAGE_NAME": "cn.bxyl.bluetooth.led"
         },
         "org.apache.cordova.dialogs": {
-            "PACKAGE_NAME": "com.product.bluetoothled"
+            "PACKAGE_NAME": "cn.bxyl.bluetooth.led"
         }
     },
     "dependent_plugins": {}
