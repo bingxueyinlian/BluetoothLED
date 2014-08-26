@@ -12,6 +12,35 @@
     <title>LED Control</title>
 </head>
 <body>
+
+    <script id="op-list-tpl" type="text/template">
+		{{#each this}}
+        <li class="topcoat-list__item">
+            <div class="subitem_1">
+                <img src="images/{{title}}.png" />
+                <div class='slider'>
+                    <button class='reduce_slider'>◀</button>
+                    <input type="range" min="{{min}}" max="{{max}}" value="{{slider_val}}" class="topcoat-range" />
+                    <button class='add_slider'>▶</button>
+                    <div>
+                        <span style="float: left">{{min}}K</span><span style="float: right">{{max}}K</span></div>
+                </div>
+                <div>
+                    <span class="topcoat-icon"></span>
+                    <div class="slider_val">
+                        {{slider_val}}K</div>
+                </div>
+            </div>
+            <div class="subitem_2">
+                <label>
+                    {{title}}</label>
+                <span>Brightness：</span>
+                <input type="number" class="topcoat-text-input" min="0" max="100" value="{{brightness}}" />%
+            </div>
+        </li>
+		{{/each}}            
+    </script>
+
     <div class="topcoat-navigation-bar">
         <div class="topcoat-navigation-bar__item center full">
             <h1 class="topcoat-navigation-bar__title">
@@ -29,53 +58,26 @@
     <div id="controlScreen">
         <div class="topcoat-list">
             <ul class="topcoat-list__container">
-
-                <script id="op-list-tpl" type="text/template">
-				{{#each this}}
-                <li class="topcoat-list__item">
-                    <div class="subitem_1">
-                        <img src="images/{{title}}.png" />
-                        <div class='slider'>
-                            <button class='reduce_slider'>◀</button>
-                            <input type="range" min="{{min}}" max="{{max}}" value="{{slider_val}}" class="topcoat-range" />
-                            <button class='add_slider'>▶</button>
-                            <div>
-                                <span style="float: left">{{min}}K</span><span style="float: right">{{max}}K</span></div>
-                        </div>
-                        <div>
-                            <span class="topcoat-icon"></span>
-                            <div class="slider_val">
-                                {{slider_val}}K</div>
-                        </div>
-                    </div>
-                    <div class="subitem_2">
-                        <label>
-                            {{title}}</label>
-                        <span>Brightness：</span>
-                        <input type="number" class="topcoat-text-input" min="0" max="100" value="{{brightness}}" />%
-                    </div>
-                </li>
-				{{/each}}
-                <li class="topcoat-list__item">
-                    <div class="subitem_1">
-                     <button class="topcoat-button" id="reset">Reset</button>
-                     <label class="topcoat-checkbox">
-                        <input type="checkbox" id="syn">
-                        <div class="topcoat-checkbox__checkmark">
-                        </div>
-                        Syn
-                     </label>
-                     <button class="topcoat-button" id="read">Read</button>
-                     <button class="topcoat-button" id="down">Down</button>
-                    </div>
-                <li>
-                </script>
             </ul>
+            <div class="button-area">
+                <button class="topcoat-button" id="reset">
+                    Reset</button>
+                <label class="topcoat-checkbox">
+                    <input type="checkbox" id="syn">
+                    <div class="topcoat-checkbox__checkmark">
+                    </div>
+                    Syn
+                </label>
+                <button class="topcoat-button" id="read">
+                    Read</button>
+                <button class="topcoat-button" id="down">
+                    Down</button>
+            </div>
         </div>
-        
-        <div class="alignC">
-            <button class="topcoat-button" id="disconnectButton">Disconnect</button>
-        </div>
+        <p class="alignC">
+            <button class="topcoat-button" id="disconnectButton">
+                Disconnect</button>
+        </p>
     </div>
     <div id="messageDiv">
     </div>

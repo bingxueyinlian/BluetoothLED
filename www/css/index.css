@@ -2,7 +2,7 @@
 {
 	text-align: center;
 }
-.topcoat-list__item
+.topcoat-list__item, .button-area
 {
 	padding: 0.25rem;
 }
@@ -14,7 +14,7 @@
 {
 	line-height: normal;
 }
-.topcoat-range
+.topcoat-range, .slider
 {
 	margin-top: 0.3rem;
 }
@@ -38,10 +38,6 @@
 {
 	padding: 0 0.5rem;
 	margin: 0 0.5rem;
-}
-.slider
-{
-	margin-top: 0.3rem;
 }
 .slider_val
 {

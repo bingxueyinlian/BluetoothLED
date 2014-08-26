@@ -3,7 +3,7 @@
 'use strict';
 
 var app = {
-	//oplist = null,
+    oplist: null,
     initialize: function() {
         this.bind();
     },
@@ -11,26 +11,25 @@ var app = {
         document.addEventListener('deviceready', this.deviceready, false);
         controlScreen.hidden = true;
 
-        //the following code move to deviceready
-        //new OperationList();
-        // slider changes
-        // $('.topcoat-range').on('change', 0, app.onSliderChange); //drag the slider
-        // $('.reduce_slider').on('click', -1, app.onSliderChange); //click button to reduce the slider
-        // $('.add_slider').on('click', 1, app.onSliderChange); //click button to add the slider
+        //Test in Browser
+        //controlScreen.hidden = false;
+        //OperationList.prototype.template = Handlebars.compile($("#op-list-tpl").html());
+        //OperationList.prototype.bindOpEvent = app.bindOpEvent;
+        //app.oplist = new OperationList();
+        //reset.onclick = app.reset;
+        //read.onclick = app.read;
+        //down.onclick = app.sendToDevice;
+        //app.initDialogs();
     },
     deviceready: function() {
         // wire buttons to functions
         deviceList.ontouchstart = app.connect; // assume not scrolling
         refreshButton.ontouchstart = app.list;
         disconnectButton.ontouchstart = app.disconnect;
-		
         reset.ontouchstart = app.reset;
         read.ontouchstart = app.read;
         down.ontouchstart = app.sendToDevice;
-        $('.topcoat-range').on('change', 0, app.onSliderChange); //drag the slider
-        $('.reduce_slider').on('click', -1, app.onSliderChange); //click button to reduce the slider
-        $('.add_slider').on('click', 1, app.onSliderChange); //click button to add the slider
-        
+        app.initDialogs();
         app.list();
     },
     list: function(event) {
@@ -53,8 +52,10 @@ var app = {
         connectionScreen.hidden = true;
         controlScreen.hidden = false;
         app.setStatus("Connected.");
-        //app.oplist =
-		new OperationList();  
+
+        OperationList.prototype.template = Handlebars.compile($("#op-list-tpl").html());
+        OperationList.prototype.bindOpEvent = app.bindOpEvent;
+        app.oplist = new OperationList();
     },
     ondisconnect: function() {
         connectionScreen.hidden = false;
@@ -86,7 +87,7 @@ var app = {
                 rangeObj.val(newValue);
             }
         }
-        slider_val.html(newValue);
+        slider_val.html(newValue + 'K');
     },
     sendToDevice: function(c) {
         bluetoothSerial.write("c" + c + "\n");
@@ -143,11 +144,28 @@ var app = {
         };
         return func;
     },
-	reset: function(){
-		 //app.oplist.initialize();       
-	},
-	read: function(){
-		bluetoothSerial.read(function(data){alert(data);}, function(err){alert("Error:"+err);});
-	}
-	
+    initDialogs: function() {
+        if (navigator.notification) { // Override default HTML alert with native dialog
+            window.alert = function(message) {
+                navigator.notification.alert(
+				  message,    // message
+				  null,       // callback
+				  "LED Control", // title
+				  'OK'        // buttonName
+			  );
+            };
+        }
+    },
+    reset: function() {
+        app.oplist.initialize();
+    },
+    read: function() {
+        bluetoothSerial.read(function(data) { alert(data); }, function(err) { alert("Error:" + err); });
+    },
+    bindOpEvent: function() {
+        $('.topcoat-range').on('change', 0, app.onSliderChange); //drag the slider
+        $('.reduce_slider').on('click', -1, app.onSliderChange); //click button to reduce the slider
+        $('.add_slider').on('click', 1, app.onSliderChange); //click button to add the slider   
+    }
+
 };
